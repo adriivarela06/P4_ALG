@@ -63,7 +63,6 @@ void backtracking(Solucion &S, Proyectos &P, int indice){
     }
     S.seleccionados[indice] = false;
     backtracking(S, P, indice + 1);
-
 }
 
 int main() {
