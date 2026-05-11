@@ -53,8 +53,8 @@ void backtracking(Solucion &S, Proyectos &P, int indice){
         S.coste += coste_p;
         S.beneficio += beneficio_p;
         
-        backtracking(S, P, indice + 1);
-        S.seleccionados[indice] = false;
+        backtracking(S, P, indice + 1); //exploramos la siguiente rama que seguiria a nuestro proyecto factible
+        S.seleccionados[indice] = false; // ahora quitamos estos datos para explorar otra rama distinta
         S.coste -= coste_p;
         S.beneficio -= beneficio_p;
     }
