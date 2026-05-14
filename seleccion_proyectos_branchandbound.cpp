@@ -19,6 +19,7 @@ struct Solucion{
     Solucion(){
         nodosgenerados=0;
         nodospodados=0;
+        beneficioOptimo=0;
         seleccionados.assign(0, false);
     }
 };
@@ -44,17 +45,12 @@ struct Nodo{
 };
 
 float calcularCota(Nodo nodo, int n, int limite, Proyectos &P) {
-    // Si el coste actual ya supera el límite, la cota es 0 (rama inviable)
     if (nodo.coste >= limite) return 0;
-
     float beneficio_cota = (float)nodo.beneficio;
     int coste_actual = nodo.coste;
-    
-    // Empezamos a mirar desde el SIGUIENTE proyecto al nivel actual
     int j = nodo.nivel + 1;
 
-    // 1. Metemos todos los proyectos enteros que quepan
-    while (j < n && (coste_actual + P.conjunto[j].first <= limite)) {
+    while (j < n && (coste_actual + P.conjunto[j].second <= limite)) { 
         coste_actual += P.conjunto[j].second;
         beneficio_cota += P.conjunto[j].first;
         j++;
@@ -62,10 +58,10 @@ float calcularCota(Nodo nodo, int n, int limite, Proyectos &P) {
 
     if (j < n) {
         int espacio_libre = limite - coste_actual;
+        // Eficiencia es beneficio/coste
         float eficiencia = (float)P.conjunto[j].first / P.conjunto[j].second;
-        beneficio_cota += espacio_libre * eficiencia;
+        beneficio_cota += (float)espacio_libre * eficiencia;
     }
-
     return beneficio_cota;
 }
 
@@ -116,7 +112,7 @@ void BranchandBound(Proyectos &P, int presupuesto, Solucion &s) {
         v.beneficio = u.beneficio;
         v.coste = u.coste;
         v.camino = u.camino;
-        v.camino[v.nivel] = 
+        v.camino[v.nivel] = false; 
         v.cota = calcularCota(v, n, presupuesto, P);
 
         if (v.cota > s.beneficioOptimo) {
