@@ -1,0 +1,8 @@
+# Grafo Lineal de 4 vertices (Camino P4)
+# Formato: 
+# Vertices
+# u v (aristas)
+4
+0 1
+1 2
+2 3
