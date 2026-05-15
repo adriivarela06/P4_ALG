@@ -206,13 +206,14 @@ void branch_and_bound(int vertex, const Graph& graph, vector<int>& colores_actua
       return;
    }
    
-   if(graph.num_vertices == vertex + 1){
+   if(graph.num_vertices == vertex){
       result.colors = colores_actuales;
       result.colors_used = cota_inferior;
+      cota_superior = cota_inferior;
       return;
    }
 
-   for(int color = 0; color < cota_superior - 1; color++){
+   for(int color = 0; color < cota_superior; color++){
       result.nodes_generated++;
 
       if(is_color_valid(vertex, color, colores_actuales, graph)){
