@@ -155,9 +155,9 @@ vector<int> greedy_coloring(const Graph& graph) {
     return colors;
 }
 
-bool backtracking(int vertex,const Graph& graph,int max_colors,ColoringResult& result){
+bool backtracking(int vertex, const Graph& graph, int max_colors, ColoringResult& result){
     
-    result.max_live_nodes = max(result.max_live_nodes,vertex +1);
+    result.max_live_nodes = max(result.max_live_nodes, vertex + 1);
     
     if(vertex == graph.num_vertices){
         result.success = true;
@@ -165,7 +165,7 @@ bool backtracking(int vertex,const Graph& graph,int max_colors,ColoringResult& r
         return true;
     }
 
-    for(int color = 0;color < max_colors;color++){
+    for(int color = 0; color < max_colors; color++){
         result.nodes_generated += 1;
         if(is_color_valid(vertex, color, result.colors, graph)){
             result.colors[vertex] = color;
@@ -176,12 +176,9 @@ bool backtracking(int vertex,const Graph& graph,int max_colors,ColoringResult& r
         }else{
             result.nodes_pruned += 1;
         }
-
-
     }
 
     return false;
-
 }
 
 /**
@@ -199,18 +196,55 @@ ColoringResult backtracking_color_with_k(const Graph& graph, int max_colors) {
     return result;
 }
 
+void branch_and_bound(int vertex, const Graph& graph, vector<int>& colores_actuales, int &cota_superior, ColoringResult& result){   
+   result.max_live_nodes = max(result.max_live_nodes, vertex + 1);
+
+   int cota_inferior = count_used_colors(colores_actuales);
+
+   if(cota_inferior >= cota_superior){
+      result.nodes_pruned++;
+      return;
+   }
+   
+   if(graph.num_vertices == vertex + 1){
+      result.colors = colores_actuales;
+      result.colors_used = cota_inferior;
+      return;
+   }
+
+   for(int color = 0; color < cota_superior - 1; color++){
+      result.nodes_generated++;
+
+      if(is_color_valid(vertex, color, colores_actuales, graph)){
+         colores_actuales[vertex] = color;
+         branch_and_bound(vertex + 1, graph, colores_actuales, cota_superior, result);
+         colores_actuales[vertex] = -1;
+      }
+      else
+         result.nodes_pruned++;
+   }
+}
+
 /**
  * @brief Encuentra el número mínimo de colores necesarios para colorear el grafo usando branch and bound.
  * @param graph El grafo a colorear.
  * @return ColoringResult con coloreo óptimo y estadísticas.
  */
 ColoringResult branch_and_bound_min_colors(const Graph& graph) {
-    ColoringResult result;
-    result.colors.assign(graph.num_vertices, -1);
-    // TODO: Implement a branch and bound search that finds the smallest number of colors
-    // needed to color the graph. Use a greedy upper bound and a lower bound based on the
-    // current partial assignment to prune the search.
-    return result;
+   ColoringResult result;
+   
+   vector<int> greedy_sol = greedy_coloring(graph);
+   
+   result.colors = greedy_sol;
+   result.colors_used = count_used_colors(greedy_sol);
+   result.success = true;
+
+   int cota_superior = result.colors_used;
+   vector<int> colores_actuales(graph.num_vertices, -1);
+
+   branch_and_bound(0, graph, colores_actuales, cota_superior, result);
+
+   return result;
 }
 
 /**
