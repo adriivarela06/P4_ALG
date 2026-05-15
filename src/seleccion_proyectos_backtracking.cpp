@@ -27,7 +27,7 @@ struct Solucion{
         contador_soluciones = 0;
     }
 
-    bool funcFactibilidad(int coste_p, int indice){
+    bool funcFactibilidad(int coste_p){
         return (coste + coste_p <= limite);
     }
 };
@@ -48,7 +48,7 @@ void backtracking(Solucion &S, Proyectos &P, int indice){
     int coste_p = P.conjunto[indice].first;
     int beneficio_p = P.conjunto[indice].second;
 
-    if (S.funcFactibilidad(coste_p, indice)){
+    if (S.funcFactibilidad(coste_p)){
         S.seleccionados[indice] = true;
         S.coste += coste_p;
         S.beneficio += beneficio_p;
