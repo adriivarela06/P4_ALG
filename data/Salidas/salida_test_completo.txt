@@ -1,22 +1,14 @@
-Loaded graph with 4 vertices and 4 edges.
-Greedy coloring uses 3 colors.
+Loaded graph with 4 vertices and 6 edges.
+Greedy coloring uses 4 colors.
 === Backtracking with max K=3 ===
-Colors used: 3
-Nodes generated: 8
-Nodes pruned: 4
+No valid coloring found.
+=== Branch and Bound Optimal Coloring ===
+Colors used: 4
+Nodes generated: 164
+Nodes pruned: 100
 Max live nodes: 5
 Color assignment:
-  vertex 0 -> color 0
-  vertex 1 -> color 1
-  vertex 2 -> color 2
-  vertex 3 -> color 1
-=== Branch and Bound Optimal Coloring ===
-Colors used: 3
-Nodes generated: 30
-Nodes pruned: 21
-Max live nodes: 4
-Color assignment:
-  vertex 0 -> color 0
-  vertex 1 -> color 1
-  vertex 2 -> color 2
-  vertex 3 -> color 1
+  vertex 0 -> color 3
+  vertex 1 -> color 2
+  vertex 2 -> color 1
+  vertex 3 -> color 0

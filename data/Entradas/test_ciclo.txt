@@ -1,7 +1,10 @@
 # Ciclo impar de 5 vertices (Pentágono)
-5
-0 1
+# Format:
+#   n [m]
+#   u v
+5 5
 1 2
 2 3
 3 4
-4 0
+4 5
+5 1
