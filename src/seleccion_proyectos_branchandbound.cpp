@@ -134,7 +134,7 @@ int main() {
     cout << "Nodos generados: " << s.nodosgenerados << endl;
     cout << "Nodos podados: " << s.nodospodados << endl;
     cout << "Proyectos seleccionados (segun orden de eficiencia): " << endl;
-    for(int i = 0; i < s.seleccionados.size(); i++) {
+    for(size_t i = 0; i < s.seleccionados.size(); i++) {
         cout << "P" << i << ": " << (s.seleccionados[i] ? "SI" : "NO") << " ";
     }
     return 0;
