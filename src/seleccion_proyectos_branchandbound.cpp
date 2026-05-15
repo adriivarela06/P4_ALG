@@ -27,7 +27,7 @@ struct Solucion{
 bool compararProyectos(pair<int,int> p1, pair<int,int> p2){
         double r1 = (double)p1.first / p1.second;
         double r2 = (double)p2.first / p2.second;
-        if (r1 == r2) return p2.second < p2.second; 
+        if (r1 == r2) return p2.second < p1.second; 
         return r1 > r2;
 }
 
