@@ -201,15 +201,15 @@ void branch_and_bound(int vertex, const Graph& graph, vector<int>& colores_actua
 
    int cota_inferior = count_used_colors(colores_actuales);
 
-   if(cota_inferior >= cota_superior){
-      result.nodes_pruned++;
-      return;
-   }
-   
    if(graph.num_vertices == vertex){
       result.colors = colores_actuales;
       result.colors_used = cota_inferior;
       cota_superior = cota_inferior;
+      return;
+   }
+
+   if(cota_inferior >= cota_superior){
+      result.nodes_pruned++;
       return;
    }
 
