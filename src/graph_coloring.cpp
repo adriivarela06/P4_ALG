@@ -155,6 +155,35 @@ vector<int> greedy_coloring(const Graph& graph) {
     return colors;
 }
 
+bool backtracking(int vertex,const Graph& graph,int max_colors,ColoringResult& result){
+    
+    result.max_live_nodes = max(result.max_live_nodes,vertex +1);
+    
+    if(vertex == graph.num_vertices){
+        result.success = true;
+        result.colors_used = count_used_colors(result.colors);
+        return true;
+    }
+
+    for(int color = 0;color < max_colors;color++){
+        result.nodes_generated += 1;
+        if(is_color_valid(vertex, color, result.colors, graph)){
+            result.colors[vertex] = color;
+            if(backtracking(vertex + 1, graph, max_colors, result)){
+                return true;
+            }
+            result.colors[vertex] = -1;
+        }else{
+            result.nodes_pruned += 1;
+        }
+
+
+    }
+
+    return false;
+
+}
+
 /**
  * @brief Intenta colorear el grafo usando backtracking con un máximo de max_colors.
  * @param graph El grafo a colorear.
@@ -163,10 +192,10 @@ vector<int> greedy_coloring(const Graph& graph) {
  */
 ColoringResult backtracking_color_with_k(const Graph& graph, int max_colors) {
     ColoringResult result;
-    result.colors.assign(graph.num_vertices, -1);
-    // TODO: Implement a recursive backtracking search that assigns colors to each vertex
-    // using at most `max_colors`. The algorithm should update `result.nodes_generated`,
-    // `result.nodes_pruned` and `result.max_live_nodes`.
+    result.colors.assign(graph.num_vertices, -1);   //iniciaalizamos el vector a -1 para indicar que no hemos puesto color todavia a ningun vertice
+   
+    backtracking(0,graph,max_colors,result);
+
     return result;
 }
 
