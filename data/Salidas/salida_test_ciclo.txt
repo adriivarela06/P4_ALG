@@ -11,6 +11,8 @@ Color assignment:
   vertex 2 -> color 0
   vertex 3 -> color 1
   vertex 4 -> color 2
+-> Tiempo de ejecución (Backtracking): 2 microsegundos.
+
 === Branch and Bound Optimal Coloring ===
 Colors used: 3
 Nodes generated: 66
@@ -22,3 +24,4 @@ Color assignment:
   vertex 2 -> color 2
   vertex 3 -> color 1
   vertex 4 -> color 0
+-> Tiempo de ejecución (Branch and Bound): 31 microsegundos.

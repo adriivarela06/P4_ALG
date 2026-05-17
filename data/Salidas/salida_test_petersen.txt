@@ -1,0 +1,37 @@
+Loaded graph with 10 vertices and 15 edges.
+Greedy coloring uses 3 colors.
+=== Backtracking with max K=3 ===
+Colors used: 3
+Nodes generated: 20
+Nodes pruned: 10
+Max live nodes: 11
+Color assignment:
+  vertex 0 -> color 0
+  vertex 1 -> color 1
+  vertex 2 -> color 0
+  vertex 3 -> color 1
+  vertex 4 -> color 2
+  vertex 5 -> color 1
+  vertex 6 -> color 0
+  vertex 7 -> color 2
+  vertex 8 -> color 2
+  vertex 9 -> color 1
+-> Tiempo de ejecución (Backtracking): 5 microsegundos.
+
+=== Branch and Bound Optimal Coloring ===
+Colors used: 3
+Nodes generated: 66
+Nodes pruned: 45
+Max live nodes: 6
+Color assignment:
+  vertex 0 -> color 0
+  vertex 1 -> color 1
+  vertex 2 -> color 0
+  vertex 3 -> color 1
+  vertex 4 -> color 2
+  vertex 5 -> color 1
+  vertex 6 -> color 0
+  vertex 7 -> color 2
+  vertex 8 -> color 2
+  vertex 9 -> color 1
+-> Tiempo de ejecución (Branch and Bound): 26 microsegundos.

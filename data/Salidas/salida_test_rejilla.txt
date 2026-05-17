@@ -1,0 +1,35 @@
+Loaded graph with 9 vertices and 12 edges.
+Greedy coloring uses 2 colors.
+=== Backtracking with max K=2 ===
+Colors used: 2
+Nodes generated: 13
+Nodes pruned: 4
+Max live nodes: 10
+Color assignment:
+  vertex 0 -> color 0
+  vertex 1 -> color 1
+  vertex 2 -> color 0
+  vertex 3 -> color 1
+  vertex 4 -> color 0
+  vertex 5 -> color 1
+  vertex 6 -> color 0
+  vertex 7 -> color 1
+  vertex 8 -> color 0
+-> Tiempo de ejecución (Backtracking): 1 microsegundos.
+
+=== Branch and Bound Optimal Coloring ===
+Colors used: 2
+Nodes generated: 6
+Nodes pruned: 4
+Max live nodes: 3
+Color assignment:
+  vertex 0 -> color 0
+  vertex 1 -> color 1
+  vertex 2 -> color 0
+  vertex 3 -> color 1
+  vertex 4 -> color 0
+  vertex 5 -> color 1
+  vertex 6 -> color 0
+  vertex 7 -> color 1
+  vertex 8 -> color 0
+-> Tiempo de ejecución (Branch and Bound): 5 microsegundos.
