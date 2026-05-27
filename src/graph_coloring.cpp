@@ -169,9 +169,9 @@ bool backtracking(int vertex, const Graph& graph, int max_colors, ColoringResult
         result.nodes_generated += 1;
         if(is_color_valid(vertex, color, result.colors, graph)){
             result.colors[vertex] = color;
-            if(backtracking(vertex + 1, graph, max_colors, result)){
+            if(backtracking(vertex + 1, graph, max_colors, result))
                 return true;
-            }
+            
             result.colors[vertex] = -1;
         }else{
             result.nodes_pruned += 1;
@@ -191,19 +191,17 @@ ColoringResult backtracking_color_with_k(const Graph& graph, int max_colors) {
     ColoringResult result;
     result.colors.assign(graph.num_vertices, -1);   //iniciaalizamos el vector a -1 para indicar que no hemos puesto color todavia a ningun vertice
    
-    backtracking(0,graph,max_colors,result);
+    backtracking(0, graph, max_colors, result);
 
     return result;
 }
 
-void branch_and_bound(int vertex, const Graph& graph, vector<int>& colores_actuales, int &cota_superior, ColoringResult& result){   
+void branch_and_bound(int vertex, const Graph& graph, vector<int>& colores_actuales, int cota_inferior, int &cota_superior, ColoringResult& result){   
    result.max_live_nodes = max(result.max_live_nodes, vertex + 1);
-
-   int cota_inferior = count_used_colors(colores_actuales);
 
    if(graph.num_vertices == vertex){
       result.colors = colores_actuales;
-      result.colors_used = cota_inferior;
+      result.colors_used = count_used_colors(result.colors);
       cota_superior = cota_inferior;
       return;
    }
@@ -217,8 +215,12 @@ void branch_and_bound(int vertex, const Graph& graph, vector<int>& colores_actua
       result.nodes_generated++;
 
       if(is_color_valid(vertex, color, colores_actuales, graph)){
+         int cota_inferior_temp = cota_inferior; 
+         if(color == cota_inferior)
+            cota_inferior_temp++;
+
          colores_actuales[vertex] = color;
-         branch_and_bound(vertex + 1, graph, colores_actuales, cota_superior, result);
+         branch_and_bound(vertex + 1, graph, colores_actuales, cota_inferior_temp, cota_superior, result);
          colores_actuales[vertex] = -1;
       }
       else
@@ -243,7 +245,7 @@ ColoringResult branch_and_bound_min_colors(const Graph& graph) {
    int cota_superior = result.colors_used;
    vector<int> colores_actuales(graph.num_vertices, -1);
 
-   branch_and_bound(0, graph, colores_actuales, cota_superior, result);
+   branch_and_bound(0, graph, colores_actuales, 0, cota_superior, result);
 
    return result;
 }
